@@ -1,19 +1,53 @@
 import requests
 import pandas as pd
 
-scheme_code = 125497
+funds = {
+    "SBI_Bluechip":119551,
+    "ICICI_Bluechip":120503,
+    "Nippon_LargeCap":118632,
+    "Axis_Bluechip":119092,
+    "Kotak_Bluechip":120841
+}
 
-url = f"https://api.mfapi.in/mf/{scheme_code}"
+for name, code in funds.items():
 
-response = requests.get(url)
+    url = f"https://api.mfapi.in/mf/{code}"
 
-data = response.json()
+    response = requests.get(url)
 
-nav_df = pd.DataFrame(data["data"])
+    data = response.json()
 
-nav_df.to_csv(
-    "data/raw/hdfc_top100_nav.csv",
-    index=False
-)
+    df = pd.DataFrame(data["data"])
 
-print("NAV saved successfully")
+    df.to_csv(
+        f"data/raw/{name}.csv",
+        index=False
+    )
+
+    print(name, "saved")import requests
+import pandas as pd
+
+funds = {
+    "SBI_Bluechip":119551,
+    "ICICI_Bluechip":120503,
+    "Nippon_LargeCap":118632,
+    "Axis_Bluechip":119092,
+    "Kotak_Bluechip":120841
+}
+
+for name, code in funds.items():
+
+    url = f"https://api.mfapi.in/mf/{code}"
+
+    response = requests.get(url)
+
+    data = response.json()
+
+    df = pd.DataFrame(data["data"])
+
+    df.to_csv(
+        f"data/raw/{name}.csv",
+        index=False
+    )
+
+    print(name, "saved")
